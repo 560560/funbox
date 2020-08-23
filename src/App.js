@@ -1,13 +1,14 @@
 import React from 'react';
 import GoodsContainer from "./Components/GoodsContainer";
+import {Row} from "react-bootstrap";
 
 
 const App = (props) => {
     return (
-        <div className="app__wrapper">
+        <Row className="app__wrapper">
             <GoodsContainer/>
 
-        </div>
+        </Row>
     );
 }
 

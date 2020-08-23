@@ -44,9 +44,10 @@ const GoodsItem = ({item, selected, addSelectedProduct, removeSelectedProduct, h
                     <path d="M0,0.089 V0.979 C0,0.991,0.014,1,0.032,1 H0.968 C0.986,1,1,0.991,1,0.979 V0.021 C1,0.009,0.986,0,0.968,0 H0.135 L0,0.089"></path>
                 </clipPath>
             </svg>
-            <div className="fullCard">
 
-                <div className={item.inStock ? "wrap" : "wrapDisabled"} id={item.id}
+            <div className="fullCard mb-md-4 mb-5">
+
+                <div className={item.inStock ? "wrap" : "wrap wrapDisabled"} id={item.id}
                      onClick={() => clickHandler(item.id)}
                      onMouseLeave={() => {
                          hoveredRemove(item.id)

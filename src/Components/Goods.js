@@ -8,7 +8,7 @@ const Goods = ({goods, selected, addSelectedProduct, removeSelectedProduct, hove
 
         return (
             <div className="goods__wrapper">
-                <h1>Ты сегодня покормил кота?</h1>
+                <h1 className="text-center">Ты сегодня покормил кота?</h1>
                 <div className="goods_block">
                     {goods.map(item => <GoodsItem key={item.id}
                                                   item={item}
