@@ -4,6 +4,11 @@ import cat from "../assets/images/cat.png"
 
 const GoodsItem = ({item, selected, addSelectedProduct, removeSelectedProduct, hoverSelected, addHoverSelectedProduct, removeHoverSelectedProduct}) => {
 
+    let isNotDesktop
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+       isNotDesktop = true
+    }
+
 
     const clickHandler = (id) => {
         if (item.inStock) {
@@ -47,7 +52,7 @@ const GoodsItem = ({item, selected, addSelectedProduct, removeSelectedProduct, h
 
             <div className="fullCard mb-md-4 mb-5">
 
-                <div className={item.inStock ? "wrap" : "wrap wrapDisabled"} id={item.id}
+                <div className={item.inStock ? "wrap" : "wrap disabled"} id={item.id}
                      onClick={() => clickHandler(item.id)}
                      onMouseLeave={() => {
                          hoveredRemove(item.id)
@@ -57,7 +62,7 @@ const GoodsItem = ({item, selected, addSelectedProduct, removeSelectedProduct, h
                      }}>
                     <div className="card">
                         <div className="summary">
-                            <div className="description">{hoverSelected.includes(item.id) ? "Котэ не одобряет?" : item.description}</div>
+                            <div className="description">{hoverSelected.includes(item.id) && !isNotDesktop ? "Котэ не одобряет?" : item.description}</div>
                             <div className="name">{item.name}</div>
                             <div className="species">{item.species}</div>
                             <div className="portions">{item.portions.split(" ").map((item, index) => Number(item) > 0 ? <b key={index}>{item}</b> :

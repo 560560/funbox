@@ -34,7 +34,7 @@ let initialState = {
             description: "Сказочное заморское яство",
             additionalDescription: "Филе из цыплят с трюфелями в бульоне.",
             weight: "5",
-            inStock: true,
+            inStock: false,
             portions: "100 порций",
             gift: " 5 мышей в подарок заказчик доволен"
         },
