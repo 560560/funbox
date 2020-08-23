@@ -2,7 +2,40 @@ import React from 'react';
 import cat from "../assets/images/cat.png"
 
 
-const GoodsItem = ({item}) => {
+const GoodsItem = ({item, selected, addSelectedProduct, removeSelectedProduct, hoverSelected, addHoverSelectedProduct, removeHoverSelectedProduct}) => {
+
+
+    const clickHandler = (id) => {
+        if (item.inStock) {
+            if (selected.includes(id)) {
+                removeSelectedProduct(id)
+                document.getElementById(id).classList.remove("active")
+                document.getElementById(id).classList.remove("hovered")
+            } else {
+                addSelectedProduct(id)
+                document.getElementById(id).classList.add('active')
+            }
+        }
+    }
+
+    const hoveredAdd = (id) => {
+        if (item.inStock) {
+            if (selected.includes(id)) {
+                if (!hoverSelected.includes(id)) {
+                    document.getElementById(id).classList.add('hovered')
+                    addHoverSelectedProduct(id)
+                }
+            }
+        }
+    }
+
+    const hoveredRemove = (id) => {
+        if (item.inStock) {
+            removeHoverSelectedProduct(id)
+            document.getElementById(id).classList.remove('hovered')
+        }
+    }
+
 
     return (
         <>
@@ -13,14 +46,23 @@ const GoodsItem = ({item}) => {
             </svg>
             <div className="fullCard">
 
-                <div className="wrap">
+                <div className={item.inStock ? "wrap" : "wrapDisabled"} id={item.id}
+                     onClick={() => clickHandler(item.id)}
+                     onMouseLeave={() => {
+                         hoveredRemove(item.id)
+                     }}
+                     onMouseEnter={() => {
+                         hoveredAdd(item.id)
+                     }}>
                     <div className="card">
                         <div className="summary">
-                            <div className="description">{item.description}</div>
+                            <div className="description">{hoverSelected.includes(item.id) ? "Котэ не одобряет?" : item.description}</div>
                             <div className="name">{item.name}</div>
                             <div className="species">{item.species}</div>
-                            <div className="portions">{item.portions.split(" ").map(item => Number(item) > 0 ? <b>{item}</b> : <> {item}</>)}</div>
-                            <div className="gift">{item.gift.split(" ").map(item => Number(item) > 0 ? <b>{item} </b> : <> {item}</>)}</div>
+                            <div className="portions">{item.portions.split(" ").map((item, index) => Number(item) > 0 ? <b key={index}>{item}</b> :
+                                <span key={index}> {item}</span>)}</div>
+                            <div className="gift">{item.gift.split(" ").map((item, index) => Number(item) > 0 ? <b key={index}>{item}</b> :
+                                <span key={index}> {item}</span>)}</div>
                         </div>
 
                         <img src={cat} alt="Cat" className="cat"/>
@@ -32,7 +74,12 @@ const GoodsItem = ({item}) => {
                     </div>
                 </div>
 
-                <div className="additionalInfo">Чего сидишь? Порадуй котэ, <span>купи</span><span>.</span></div>
+                {!selected.includes(item.id) && item.inStock
+                    ? <div className="additionalInfo">Чего сидишь? Порадуй котэ, <span onClick={() => clickHandler(item.id)}>купи</span><span>.</span></div>
+                    : selected.includes(item.id) && item.inStock
+                        ? <div className="additionalInfo">{item.additionalDescription}</div>
+                        : !item.inStock && <div className="additionalInfo" style={{color: "#ffff66"}}>Печалька, {item.species} закончился.</div>}
+
 
             </div>
 

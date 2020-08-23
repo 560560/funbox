@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Goods from "./Goods";
-import {getGoodsSelector} from "../redux/goods-selector";
+import {addHoverSelectedProduct, addSelectedProduct, removeHoverSelectedProduct, removeSelectedProduct} from "../redux/goods-reducer";
 
 class GoodsContainer extends Component {
 
@@ -13,7 +13,9 @@ class GoodsContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    goods: getGoodsSelector(state)
+    goods: state.goodsPage.goods,
+    selected: state.goodsPage.selected,
+    hoverSelected: state.goodsPage.hoverSelected
 })
 
-export default connect(mapStateToProps, {})(GoodsContainer);
+export default connect(mapStateToProps, {addSelectedProduct, removeSelectedProduct, addHoverSelectedProduct, removeHoverSelectedProduct})(GoodsContainer);
